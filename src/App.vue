@@ -1,16 +1,21 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
+  <AppHeaderVue />
+  <AppMainVue h1="Магазин Colors по продаже краски" />
+  <AppFooterVue />
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import HelloWorld from "./components/HelloWorld.vue";
+import AppFooterVue from "./components/AppFooter.vue";
+import AppHeaderVue from "./components/AppHeader.vue";
+import AppMainVue from "./components/AppMain.vue";
 
 export default defineComponent({
   name: "App",
   components: {
-    HelloWorld,
+    AppHeaderVue,
+    AppMainVue,
+    AppFooterVue,
   },
 });
 </script>
@@ -20,8 +25,16 @@ export default defineComponent({
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  display: flex;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+  justify-content: start;
+  align-items: start;
+}
+
+body {
+  margin: 0;
 }
 </style>
