@@ -6,6 +6,6 @@ p category filter
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: "CategoryFilter",
+  name: "FilterCategory",
 });
 </script>

@@ -1,6 +1,8 @@
 <template lang="pug">
 main.main
   h1.visually-hidden {{ h1 }}
+  ul.ul 
+    
   <SliderPromoVue />
   <GoodsContainerVue />
   <CardModalVue />
