@@ -3,13 +3,13 @@ main.main
   h1.visually-hidden {{ h1 }}
     
   <SliderPromoVue />
-  <GoodsContainerVue />
+  <ProductsContainer />
   <CardModalVue />
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import GoodsContainerVue from "./goods/GoodsContainer.vue";
+import ProductsContainer from "./products/ProductsContainer.vue";
 import SliderPromoVue from "./slider/SliderPromo.vue";
 import CardModalVue from "./card/CardModal.vue";
 
@@ -20,7 +20,7 @@ export default defineComponent({
   },
   components: {
     SliderPromoVue,
-    GoodsContainerVue,
+    ProductsContainer,
     CardModalVue,
   },
 });

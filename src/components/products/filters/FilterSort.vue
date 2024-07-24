@@ -1,5 +1,5 @@
 <template lang="pug">
-p sort filter1
+p.sort sort filter1
 </template>
 
 <script lang="ts">
@@ -9,3 +9,10 @@ export default defineComponent({
   name: "FilterSort",
 });
 </script>
+
+<style lang="scss" scoped>
+.sort {
+  width: 50%;
+  text-align: end;
+}
+</style>
