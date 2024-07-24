@@ -1,7 +1,7 @@
 <template lang="pug">
 ul.pages.pages-list 
   li.pages-item(v-for="(page, idx) in pages" :key="idx")
-    a(href="/") {{ page }}
+    a(href="#") {{ page }}
 </template>
 
 <script lang="ts">
@@ -35,5 +35,6 @@ export default defineComponent({
 
 .pages-item {
   text-transform: uppercase;
+  @include hover;
 }
 </style>

@@ -42,10 +42,6 @@ export default defineComponent({
   column-gap: 24px;
 }
 svg {
-  cursor: pointer;
-
-  &:hover {
-    color: red;
-  }
+  @include hover;
 }
 </style>

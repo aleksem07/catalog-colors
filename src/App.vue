@@ -59,8 +59,8 @@ a {
 }
 
 [class*="-container"] {
-  margin-inline: auto;
-  max-width: $size_desktop;
+  margin: 0 auto;
+  max-width: $size_desktop - $padding_container;
   padding-inline: $padding_container;
 }
 

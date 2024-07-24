@@ -1,7 +1,6 @@
 <template lang="pug">
 main.main
   h1.visually-hidden {{ h1 }}
-  ul.ul 
     
   <SliderPromoVue />
   <GoodsContainerVue />
@@ -27,4 +26,8 @@ export default defineComponent({
 });
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.main {
+  width: 100%;
+}
+</style>
