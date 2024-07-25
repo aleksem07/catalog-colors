@@ -6,3 +6,7 @@
     color: $color-brand;
   }
 }
+
+@mixin transition-default($name: all, $duration: 0.3s) {
+  transition: $name $duration ease;
+}

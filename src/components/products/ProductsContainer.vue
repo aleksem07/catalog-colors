@@ -2,7 +2,7 @@
 section.products
   .products-container
     <FilterCategoryVue />
-    .products-view
+    .products-catalog
       <ProductsAllCounterVue />
       <FilterSortVue />
       <ProductsListVue />
@@ -33,7 +33,7 @@ export default defineComponent({
   display: flex;
 }
 
-.products-view {
+.products-catalog {
   flex: 1;
   display: flex;
   flex-wrap: wrap;

@@ -3,7 +3,7 @@ ul.products-list
   li.products-item.product(v-for="(product, idx) in products" :key="idx")
     img.product-img(:alt="product.title" :src="getRandomImg()" width='278px' height='278px')
     h3.product-title Краска {{ product.title }}
-    p.product-price {{ Math.floor(product.price) }}0 rur 
+    p.product-price {{ Math.floor(product.price) }}0 ₽
 </template>
 
 <script lang="ts">
@@ -32,7 +32,6 @@ export default defineComponent({
           "https://66a1121d7053166bcabde449.mockapi.io/api/v1/products"
         );
         products.value = resp.data;
-        console.log(products.value);
       } catch (err) {
         console.error("Error fetching products:", err);
       }
