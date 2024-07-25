@@ -12,6 +12,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .counter {
+  padding-bottom: 44px;
   width: 50%;
 }
 </style>
