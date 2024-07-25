@@ -2,7 +2,7 @@
 FilterCategory(:selectedCategories="selectedCategories" @update:filter="applyFilter")
 ul.products-list(v-if="!noFilteredProducts")
   li.products-item.product(v-for="(product, idx) in filteredProducts" :key="idx")
-    img.product-img(:alt="product.title" :src="getRandomImg()" width='278px' height='278px')
+    img.product-img(:alt="product.title" :src="getCurrentImg(idx)" width='278px' height='278px')
     h3.product-title Краска {{ product.title }}
     p.product-price {{ Math.floor(product.price) }}0 ₽
 div.products-no-found(v-else) Извините, товары по запросу не найдены. Пожалуйста, попробуйте изменить фильтры или обновить страницу
@@ -38,9 +38,9 @@ export default defineComponent({
       "paints/paint9.png",
     ]);
 
-    const getRandomImg = () => {
-      const randomIdx = Math.floor(Math.random() * paints.value.length);
-      return paints.value[randomIdx];
+    const getCurrentImg = (idx: number) => {
+      const imgIndex = idx % paints.value.length;
+      return paints.value[imgIndex];
     };
 
     const applyFilter = (categories: string[]) => {
@@ -66,7 +66,7 @@ export default defineComponent({
       products,
       selectedCategories,
       filteredProducts,
-      getRandomImg,
+      getCurrentImg,
       applyFilter,
       noFilteredProducts,
     };
