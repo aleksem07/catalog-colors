@@ -1,12 +1,26 @@
 <template lang="pug">
-p.counter 412 товаров
+p.counter(v-if="filteredProducts.length === 1") {{ filteredProducts.length }} товар
+p.counter(v-else) {{ filteredProducts.length }} товаров
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, computed } from "vue";
+import { useStore } from "vuex";
+import { IProduct } from "@/types/products";
 
 export default defineComponent({
   name: "ProductsAllCounter",
+  setup() {
+    const store = useStore();
+
+    const filteredProducts = computed<IProduct[]>(
+      () => store.getters.getFilteredProducts
+    );
+
+    return {
+      filteredProducts,
+    };
+  },
 });
 </script>
 
