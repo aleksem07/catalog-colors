@@ -14,5 +14,7 @@ export default defineComponent({
 .counter {
   padding-bottom: 44px;
   width: 50%;
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
 }
 </style>

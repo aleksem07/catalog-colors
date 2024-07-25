@@ -14,5 +14,7 @@ export default defineComponent({
 .sort {
   width: 50%;
   text-align: end;
+  grid-column: -1 / -2;
+  grid-row: 1 / 2;
 }
 </style>

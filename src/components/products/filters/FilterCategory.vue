@@ -1,25 +1,48 @@
 <template lang="pug">
 .filter-category
-  label.filter-category--label(v-for="(name, idx) in categoriesName") {{name}}
-    input.filter-category--input(type="checkbox")
+  label.filter-category--label(v-for="(category, key, idx) in categories" :key="idx") {{category}}
+    input.filter-category--input(type="checkbox" :value="key" v-model="localSelectedCategories" @change="updateFilter")
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, watch } from "vue";
 
 export default defineComponent({
   name: "FilterCategory",
-  setup() {
-    const categoriesName = ref([
-      "Новинки",
-      "Есть в наличии",
-      "Контрактные",
-      "Эксклюзивные",
-      "Распродажа",
-    ]);
+  props: {
+    selectedCategories: {
+      type: Array as () => string[],
+      required: true,
+    },
+  },
+  emits: ["update:filter"],
+  setup(props, { emit }) {
+    const categories = ref({
+      new: "Новинки",
+      inStock: "В наличии",
+      contract: "Контрактные",
+      exclusive: "Эксклюзивные",
+      sale: "Распродажа",
+    });
+
+    const localSelectedCategories = ref(props.selectedCategories);
+
+    watch(
+      () => props.selectedCategories,
+      newCategories => {
+        localSelectedCategories.value = newCategories;
+      },
+      { immediate: true }
+    );
+
+    const updateFilter = () => {
+      emit("update:filter", localSelectedCategories.value);
+    };
 
     return {
-      categoriesName,
+      categories,
+      localSelectedCategories,
+      updateFilter,
     };
   },
 });
@@ -27,10 +50,12 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .filter-category {
-  width: calc(100% / 6);
+  width: calc($size_desktop / 6);
   display: flex;
   flex-direction: column;
   row-gap: 10px;
+  grid-column: 1 / 2;
+  grid-row: 1 / -1;
 }
 
 .filter-category--label {
@@ -40,6 +65,7 @@ export default defineComponent({
   text-transform: uppercase;
   position: relative;
   cursor: pointer;
+  text-wrap: nowrap;
 }
 
 .filter-category--input {

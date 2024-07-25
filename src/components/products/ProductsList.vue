@@ -1,19 +1,31 @@
 <template lang="pug">
-ul.products-list
-  li.products-item.product(v-for="(product, idx) in products" :key="idx")
+FilterCategory(:selectedCategories="selectedCategories" @update:filter="applyFilter")
+ul.products-list(v-if="!noFilteredProducts")
+  li.products-item.product(v-for="(product, idx) in filteredProducts" :key="idx")
     img.product-img(:alt="product.title" :src="getRandomImg()" width='278px' height='278px')
     h3.product-title Краска {{ product.title }}
     p.product-price {{ Math.floor(product.price) }}0 ₽
+div.products-no-found(v-else) Извините, товары по запросу не найдены. Пожалуйста, попробуйте изменить фильтры или обновить страницу
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted } from "vue";
-import axios from "axios";
+import { defineComponent, ref, onMounted, computed, watch } from "vue";
+import { useStore } from "vuex";
+import FilterCategory from "./filters/FilterCategory.vue";
+import { IProduct } from "@/types/products";
 
 export default defineComponent({
   name: "ProductsList",
+  components: {
+    FilterCategory,
+  },
   setup() {
-    const products = ref([]);
+    const store = useStore();
+    const products = computed<IProduct[]>(() => store.getters.getProducts);
+    const filteredProducts = computed<IProduct[]>(
+      () => store.getters.getFilteredProducts
+    );
+    const selectedCategories = ref<string[]>([]);
     const paints = ref([
       "paints/paint1.png",
       "paints/paint2.png",
@@ -26,29 +38,37 @@ export default defineComponent({
       "paints/paint9.png",
     ]);
 
-    const fetchProducts = async () => {
-      try {
-        const resp = await axios.get(
-          "https://66a1121d7053166bcabde449.mockapi.io/api/v1/products"
-        );
-        products.value = resp.data;
-      } catch (err) {
-        console.error("Error fetching products:", err);
-      }
-    };
-
     const getRandomImg = () => {
       const randomIdx = Math.floor(Math.random() * paints.value.length);
       return paints.value[randomIdx];
     };
 
+    const applyFilter = (categories: string[]) => {
+      selectedCategories.value = categories;
+      store.dispatch("fetchFilteredProducts", categories);
+    };
+
     onMounted(() => {
-      fetchProducts();
+      if (!products.value.length) {
+        store.dispatch("fetchProducts");
+      }
     });
+
+    watch(selectedCategories, newCategories => {
+      store.dispatch("fetchFilteredProducts", newCategories);
+    });
+
+    const noFilteredProducts = computed(
+      () => filteredProducts.value.length === 0
+    );
 
     return {
       products,
+      selectedCategories,
+      filteredProducts,
       getRandomImg,
+      applyFilter,
+      noFilteredProducts,
     };
   },
 });
@@ -59,6 +79,14 @@ export default defineComponent({
   display: grid;
   column-gap: 1.5rem;
   grid-template-columns: repeat(5, 1fr);
+  grid-column: 2 / -1;
+  grid-row: 2 / 3;
+}
+
+.products-no-found {
+  grid-column: 2 / -1;
+  grid-row: 2 / 3;
+  font-size: $fz-24px;
 }
 
 .product-img {
