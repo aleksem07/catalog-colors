@@ -39,20 +39,7 @@ export default createStore({
           ? state.products
           : state.products.filter(product =>
               selectedCategories.every(category => {
-                switch (category) {
-                  case "new":
-                    return product.new === true;
-                  case "inStock":
-                    return product.inStock === true;
-                  case "contract":
-                    return product.contract === true;
-                  case "exclusive":
-                    return product.exclusive === true;
-                  case "sale":
-                    return product.sale === true;
-                  default:
-                    return false;
-                }
+                return product[category];
               })
             );
 
