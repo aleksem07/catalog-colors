@@ -22,6 +22,7 @@ export default defineComponent({
 
 .promo-container,
 .promo-slide {
+  padding-inline: 0;
   grid-column: 1 / -1;
   grid-row: 1 / -1;
 }
@@ -34,7 +35,7 @@ export default defineComponent({
 }
 
 .promo-container {
-  width: 100%;
+  width: calc(100% - $padding_container * 2);
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);

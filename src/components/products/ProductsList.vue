@@ -78,7 +78,8 @@ export default defineComponent({
 .products-list {
   display: grid;
   column-gap: 1.5rem;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(284px, 1fr));
+  grid-template-rows: repeat(auto-fill, minmax(378px, 1fr));
   grid-column: 2 / -1;
   grid-row: 2 / 3;
 }
