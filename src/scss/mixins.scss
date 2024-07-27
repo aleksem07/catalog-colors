@@ -1,0 +1,18 @@
+@mixin hover($color: $color-brand) {
+  cursor: pointer;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: $color;
+  }
+}
+
+@mixin transition-default($name: all, $duration: 0.3s) {
+  transition: $name $duration ease;
+}
+
+@mixin flex-between() {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
