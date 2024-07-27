@@ -10,3 +10,9 @@
 @mixin transition-default($name: all, $duration: 0.3s) {
   transition: $name $duration ease;
 }
+
+@mixin flex-between() {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

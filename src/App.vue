@@ -70,9 +70,15 @@ a {
   text-decoration: none;
 }
 
+button {
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+}
+
 [class*="-container"] {
   margin: 0 auto;
-  max-width: $size_desktop - $padding_container;
+  max-width: calc($size_desktop - $padding_container * 2);
   padding-inline: $padding_container;
 }
 
