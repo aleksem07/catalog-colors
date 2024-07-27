@@ -4,13 +4,24 @@ section.promo
   
   .promo-container 
     p.breadcrumbs Главная Продукты Краски 
+    <SliderData :items="SLIDER_DATA"/>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import SliderData from "./SliderData.vue";
+import SLIDER_DATA from "@/common/slider";
 
 export default defineComponent({
   name: "SliderPromo",
+  components: {
+    SliderData,
+  },
+  setup() {
+    return {
+      SLIDER_DATA,
+    };
+  },
 });
 </script>
 
@@ -37,7 +48,7 @@ export default defineComponent({
 .promo-container {
   width: calc(100% - $padding_container * 2);
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   grid-template-rows: repeat(3, 1fr);
 }
 
