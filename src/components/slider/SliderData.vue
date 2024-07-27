@@ -69,10 +69,6 @@ export default defineComponent({
   letter-spacing: 0.02em;
 }
 
-.slider-button {
-  color: $color-light;
-}
-
 .slider-navigate {
   grid-column: 2 / 3;
   grid-row: 3 / 4;
