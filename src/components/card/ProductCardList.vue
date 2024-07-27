@@ -1,10 +1,10 @@
 <template lang="pug">
 .card-products 
-  p.card-products-count(v-if="productsInCard.length === 0")
-  p.card-products-count(v-else-if="productsInCard.length < 5 ") {{ productsInCard.length}} {{ productsInCard.length === 1 ? 'товар' : 'товара' }}
-  p.card-products-count(v-else) {{ productsInCard.length}} товаров
+  p.card-products-count(v-if="AllProductsQuantity() === 0")
+  p.card-products-count(v-else-if="AllProductsQuantity() < 5 ") {{ AllProductsQuantity() }} {{ AllProductsQuantity() === 1 ? 'товар' : 'товара' }}
+  p.card-products-count(v-else) {{ AllProductsQuantity() }} товаров
 
-  button(v-if="productsInCard.length > 0").card-products-clear(@click="clearCard")  очистить список
+  button(v-if="AllProductsQuantity() > 0").card-products-clear(@click="clearCard")  очистить список
   button(v-else).card-products-clear
 
   ul.card-products-list
@@ -12,11 +12,11 @@
       img.product-img(:alt="product.title" :src="product.image" width='96px' height='96px')
       .product-info
         h3.product-title Краска {{ product.title }}
-        p.product-price {{ Math.floor(product.price) }}0 ₽
+        p.product-price {{ Math.floor(product.price) * 10 * product.quantity }} ₽
       .product-quantity
         button.product-quantity--minus -
         p.product-quantity--count {{ product.quantity }}
-        button.product-quantity--plus +
+        button.product-quantity--plus(@click="addToCart(product)") +
       button.product-del(@click="removeProduct(product)") x 
     li(v-else) Корзина пуста
 </template>
@@ -25,6 +25,7 @@
 import { defineComponent, computed } from "vue";
 import { useStore } from "vuex";
 import { IProduct } from "@/types/products";
+import { addToCart, AllProductsQuantity } from "@/utils/ProductsToCard";
 
 export default defineComponent({
   name: "ProductCardList",
@@ -50,6 +51,8 @@ export default defineComponent({
       productsInCard,
       clearCard,
       removeProduct,
+      addToCart: (product: IProduct) => addToCart(store, product),
+      AllProductsQuantity: () => AllProductsQuantity(productsInCard.value),
     };
   },
 });

@@ -1,10 +1,11 @@
 <template lang="pug">
-button.card(@click="openCard") {{ productsInCard.length }}
+button.card(@click="openCard") {{ AllProductsQuantity() }}
 </template>
 
 <script lang="ts">
 import { defineComponent, computed } from "vue";
 import { useStore } from "vuex";
+import { AllProductsQuantity } from "@/utils/ProductsToCard";
 
 export default defineComponent({
   name: "CardIcon",
@@ -20,6 +21,7 @@ export default defineComponent({
     return {
       openCard,
       productsInCard,
+      AllProductsQuantity: () => AllProductsQuantity(productsInCard.value),
     };
   },
 });

@@ -10,4 +10,10 @@ export interface IProduct {
   exclusive: boolean;
   sale: boolean;
   id: string;
+  quantity?: number;
+}
+
+export interface IState {
+  products: IProduct[];
+  productsInCard: IProduct[];
 }

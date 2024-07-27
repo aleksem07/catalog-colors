@@ -4,7 +4,7 @@ ul.products-list(v-if="!noFilteredProducts")
   li.products-item.product(v-for="(product, idx) in filteredProducts" :key="idx")
     img.product-img(:alt="product.title" :src="product.image" width='278px' height='278px')
     h3.product-title Краска {{ product.title }}
-    p.product-price {{ Math.floor(product.price) }}0 ₽
+    p.product-price {{ Math.floor(product.price) * 10 }} ₽
     button.product-add-card(@click="addToCart(product)") +
 div.products-no-found(v-else) Извините, товары по запросу не найдены. Пожалуйста, попробуйте изменить фильтры или обновить страницу
 </template>
@@ -14,6 +14,7 @@ import { defineComponent, ref, onMounted, computed, watch } from "vue";
 import { useStore } from "vuex";
 import FilterCategory from "./filters/FilterCategory.vue";
 import { IProduct } from "@/types/products";
+import { addToCart } from "@/utils/ProductsToCard";
 
 export default defineComponent({
   name: "ProductsList",
@@ -39,11 +40,6 @@ export default defineComponent({
       "paints/paint8.png",
       "paints/paint9.png",
     ]);
-
-    const addToCart = (product: IProduct) => {
-      const currentProductsInCard = store.getters.getProductsInCard;
-      store.commit("setProductsInCard", [...currentProductsInCard, product]);
-    };
 
     const initializeProductImages = (products: IProduct[]) => {
       const updatedProducts = products.map((product, idx) => {
@@ -84,7 +80,7 @@ export default defineComponent({
       initializeProductImages,
       applyFilter,
       noFilteredProducts,
-      addToCart,
+      addToCart: (product: IProduct) => addToCart(store, product),
     };
   },
 });
