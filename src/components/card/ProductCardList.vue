@@ -1,20 +1,30 @@
 <template lang="pug">
-ul.card-products-list
-  li.card-products-item.product(v-for="product in productsInCard")
-    img.product-img(:alt="product.title" :src="product.image" width='96px' height='96px')
-    .product-info
-      h3.product-title Краска {{ product.title }}
-      p.product-price {{ Math.floor(product.price) }}0 ₽
-    .product-quantity
-      button.product-quantity--minus -
-      p.product-quantity--count 1
-      button.product-quantity--plus +
-    button.product-del x 
+.card-products 
+  p.card-products-count(v-if="productsInCard.length === 0")
+  p.card-products-count(v-else-if="productsInCard.length < 5 ") {{ productsInCard.length}} {{ productsInCard.length === 1 ? 'товар' : 'товара' }}
+  p.card-products-count(v-else) {{ productsInCard.length}} товаров
+
+  button(v-if="productsInCard.length > 0").card-products-clear(@click="clearCard")  очистить список
+  button(v-else).card-products-clear
+
+  ul.card-products-list
+    li(v-if="productsInCard.length > 0").card-products-item.product(v-for="product in productsInCard")
+      img.product-img(:alt="product.title" :src="product.image" width='96px' height='96px')
+      .product-info
+        h3.product-title Краска {{ product.title }}
+        p.product-price {{ Math.floor(product.price) }}0 ₽
+      .product-quantity
+        button.product-quantity--minus -
+        p.product-quantity--count {{ product.quantity }}
+        button.product-quantity--plus +
+      button.product-del(@click="removeProduct(product)") x 
+    li(v-else) Корзина пуста
 </template>
 
 <script lang="ts">
 import { defineComponent, computed } from "vue";
 import { useStore } from "vuex";
+import { IProduct } from "@/types/products";
 
 export default defineComponent({
   name: "ProductCardList",
@@ -22,16 +32,33 @@ export default defineComponent({
     const store = useStore();
     const productsInCard = computed(() => store.getters.getProductsInCard);
 
+    const clearCard = () => {
+      store.commit("setProductsInCard", []);
+    };
+
+    const removeProduct = (product: IProduct) => {
+      const currentProductsInCard = store.getters.getProductsInCard;
+      store.commit(
+        "setProductsInCard",
+        currentProductsInCard.filter(
+          (productInCard: IProduct) => productInCard.id !== product.id
+        )
+      );
+    };
+
     return {
       productsInCard,
+      clearCard,
+      removeProduct,
     };
   },
 });
 </script>
 
 <style lang="scss" scoped>
-.card-products {
-  flex: 1;
+.card-products-list {
+  max-height: 70vh;
+  overflow: auto;
 }
 
 .product {
@@ -51,40 +78,5 @@ export default defineComponent({
 
 .product-quantity {
   display: flex;
-}
-
-.product-total {
-  padding-block: 80px;
-  @include flex-between;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto auto;
-
-  &-price {
-    grid-column: 1 / 2;
-    grid-row: 2 / 3;
-    font-weight: 500;
-    font-size: $fz-30px;
-    letter-spacing: -0.02em;
-  }
-
-  &-title {
-    grid-column: 1 / 2;
-    grid-row: 1 / 2;
-    text-transform: capitalize;
-  }
-
-  &-button {
-    padding-block: 20px;
-    padding-inline: 58px;
-    grid-column: 2 / 3;
-    grid-row: 1 / -1;
-    background-color: $color-brand;
-    border-radius: 4px;
-    font-weight: 500;
-    font-size: $fz-12px;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-  }
 }
 </style>
