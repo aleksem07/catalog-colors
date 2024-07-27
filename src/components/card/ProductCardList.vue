@@ -8,16 +8,22 @@
   button(v-else).card-products-clear
 
   ul.card-products-list
-    li(v-if="productsInCard.length > 0").card-products-item.product(v-for="product in productsInCard")
+    li(v-if="productsInCard.length > 0")(:class="product.inStock ? '' : 'product--out'").card-products-item.product(v-for="product in productsInCard")
       img.product-img(:alt="product.title" :src="product.image" width='96px' height='96px')
       .product-info
         h3.product-title Краска {{ product.title }}
-        p.product-price {{ Math.floor(product.price) * 10 * product.quantity }} ₽
+        p.product-price {{ Math.floor(product.price) * 10 * product.quantity }}₽
       .product-quantity
-        button.product-quantity--minus -
+        button(v-if="product.inStock").product-quantity--minus(@click="decrementProductQuantity(product)") -
+        button(v-else)(disabled).product-quantity--minus(@click="decrementProductQuantity(product)") -
+
         p.product-quantity--count {{ product.quantity }}
-        button.product-quantity--plus(@click="addToCart(product)") +
-      button.product-del(@click="removeProduct(product)") x 
+
+        button(v-if="product.inStock").product-quantity--plus(@click="addToCart(product)") +
+
+        button(v-else)(disabled).product-quantity--plus(@click="addToCart(product)") +
+      button(v-if="product.inStock").product-del(@click="removeProduct(product)") x 
+      button(v-else).product-del(@click="randomProduct(product)") random
     li(v-else) Корзина пуста
 </template>
 
@@ -47,12 +53,46 @@ export default defineComponent({
       );
     };
 
+    const decrementProductQuantity = (product: IProduct) => {
+      const currentProductsInCard = store.getters.getProductsInCard;
+      const productIndex = currentProductsInCard.findIndex(
+        (productInCard: IProduct) => productInCard.id === product.id
+      );
+
+      if (productIndex !== -1) {
+        currentProductsInCard[productIndex].quantity--;
+      }
+
+      if (currentProductsInCard[productIndex].quantity === 0) {
+        removeProduct(product);
+      } else {
+        store.commit("setProductsInCard", currentProductsInCard);
+      }
+    };
+
+    const randomProduct = (product: IProduct) => {
+      const currentProductsInCard = store.getters.getFilteredProducts;
+      let productIndex = Math.floor(
+        Math.random() * currentProductsInCard.length
+      );
+
+      if (!currentProductsInCard[productIndex].inStock) {
+        productIndex = Math.floor(Math.random() * currentProductsInCard.length);
+      }
+
+      addToCart(store, currentProductsInCard[productIndex]);
+
+      removeProduct(product);
+    };
+
     return {
       productsInCard,
       clearCard,
       removeProduct,
       addToCart: (product: IProduct) => addToCart(store, product),
       AllProductsQuantity: () => AllProductsQuantity(productsInCard.value),
+      decrementProductQuantity,
+      randomProduct,
     };
   },
 });
@@ -77,6 +117,10 @@ export default defineComponent({
     border-top: 1px solid $color-dark;
     opacity: 0.1;
   }
+}
+
+.product--out {
+  opacity: 0.5;
 }
 
 .product-quantity {

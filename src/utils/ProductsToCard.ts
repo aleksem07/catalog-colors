@@ -18,6 +18,7 @@ const addToCart = (store: Store<IState>, product: IProduct) => {
 const AllProductsQuantity = (products: IProduct[]) => {
   let quantity = 0;
   products.forEach((product: IProduct) => {
+    if (!product.inStock) return;
     if (product.quantity) quantity += product.quantity;
   });
   return quantity;

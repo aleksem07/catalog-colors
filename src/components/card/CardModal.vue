@@ -6,7 +6,7 @@
   <ProductCardList />
   .product-total
     p.product-total-title Итого
-    p.product-total-price 0₽
+    p.product-total-price {{ priceTotal() }} ₽
     button.product-total-button Оформить заказ
 
 </template>
@@ -15,6 +15,7 @@
 import { defineComponent, computed } from "vue";
 import { useStore } from "vuex";
 import ProductCardList from "./ProductCardList.vue";
+import { IProduct } from "@/types/products";
 
 export default defineComponent({
   name: "CardModal",
@@ -26,6 +27,15 @@ export default defineComponent({
     const isCardOpen = computed(() => store.state.isCardOpen);
     const productsInCard = computed(() => store.getters.getProductsInCard);
 
+    const priceTotal = () => {
+      let total = 0;
+      productsInCard.value.forEach((product: IProduct) => {
+        if (!product.inStock) return;
+        total += (parseInt(product.price) * 10 || 0) * (product.quantity || 0);
+      });
+      return total;
+    };
+
     const closeCard = () => {
       store.commit("setIsCardOpen", false);
     };
@@ -34,6 +44,7 @@ export default defineComponent({
       closeCard,
       isCardOpen,
       productsInCard,
+      priceTotal,
     };
   },
 });
