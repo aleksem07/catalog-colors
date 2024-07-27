@@ -21,6 +21,7 @@ export default defineComponent({
 .call-tel {
   font-weight: 500;
   letter-spacing: -0.02em;
+  @include hover;
 }
 
 .call-title {

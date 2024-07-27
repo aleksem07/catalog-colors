@@ -1,13 +1,25 @@
 <template lang="pug">
-.card
-  p.card_title 4
+button.card(@click="openCard") 4
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { useStore } from "vuex";
 
 export default defineComponent({
   name: "CardIcon",
+
+  setup() {
+    const store = useStore();
+
+    const openCard = () => {
+      store.commit("setIsCardOpen", true);
+    };
+
+    return {
+      openCard,
+    };
+  },
 });
 </script>
 

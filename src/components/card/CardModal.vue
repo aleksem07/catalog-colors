@@ -1,8 +1,8 @@
 <template lang="pug">
-.card
+.card(:class="isCardOpen ? 'card--open' : 'card--close'")
   .card-header
     h2.card-title Корзина
-    button.card_button--close(@click="closeModal") X 
+    button.card_button--close(@click="closeCard") X 
   .card-products 
     p.card-products-count  count 
     button.card-products-clear  очистить список
@@ -25,17 +25,22 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, computed } from "vue";
+import { useStore } from "vuex";
 
 export default defineComponent({
   name: "CardModal",
   setup() {
-    const closeModal = () => {
-      return console.log("close");
+    const store = useStore();
+    const isCardOpen = computed(() => store.state.isCardOpen);
+
+    const closeCard = () => {
+      store.commit("setIsCardOpen", false);
     };
 
     return {
-      closeModal,
+      closeCard,
+      isCardOpen,
     };
   },
 });
@@ -53,6 +58,19 @@ export default defineComponent({
   background-color: $color-light;
   display: flex;
   flex-direction: column;
+
+  &--open,
+  &--close {
+    @include transition-default(right 0.5s);
+  }
+
+  &--open {
+    right: 0;
+  }
+
+  &--close {
+    right: -100%;
+  }
 }
 
 .card-title {
