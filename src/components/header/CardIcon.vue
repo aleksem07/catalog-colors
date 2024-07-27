@@ -1,9 +1,9 @@
 <template lang="pug">
-button.card(@click="openCard") 4
+button.card(@click="openCard") {{ productsInCard.length }}
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, computed } from "vue";
 import { useStore } from "vuex";
 
 export default defineComponent({
@@ -11,6 +11,7 @@ export default defineComponent({
 
   setup() {
     const store = useStore();
+    const productsInCard = computed(() => store.getters.getProductsInCard);
 
     const openCard = () => {
       store.commit("setIsCardOpen", true);
@@ -18,6 +19,7 @@ export default defineComponent({
 
     return {
       openCard,
+      productsInCard,
     };
   },
 });

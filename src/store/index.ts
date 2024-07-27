@@ -55,12 +55,6 @@ export default createStore({
 
       commit("setFilteredProducts", filtered);
     },
-    fetchProductsInCard({ commit, state }) {
-      commit("setProductsInCard", state.products);
-    },
-    toggleIsCardOpen({ commit, state }) {
-      commit("setIsCardOpen", !state.isCardOpen);
-    },
   },
   modules: {},
 });

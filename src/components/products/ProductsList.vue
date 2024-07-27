@@ -5,6 +5,7 @@ ul.products-list(v-if="!noFilteredProducts")
     img.product-img(:alt="product.title" :src="getCurrentImg(idx)" width='278px' height='278px')
     h3.product-title Краска {{ product.title }}
     p.product-price {{ Math.floor(product.price) }}0 ₽
+    button.product-add-card(@click="addToCart(product)") +
 div.products-no-found(v-else) Извините, товары по запросу не найдены. Пожалуйста, попробуйте изменить фильтры или обновить страницу
 </template>
 
@@ -25,6 +26,7 @@ export default defineComponent({
     const filteredProducts = computed<IProduct[]>(
       () => store.getters.getFilteredProducts
     );
+
     const selectedCategories = ref<string[]>([]);
     const paints = ref([
       "paints/paint1.png",
@@ -37,6 +39,11 @@ export default defineComponent({
       "paints/paint8.png",
       "paints/paint9.png",
     ]);
+
+    const addToCart = (product: IProduct) => {
+      const currentProductsInCard = store.getters.getProductsInCard;
+      store.commit("setProductsInCard", [...currentProductsInCard, product]);
+    };
 
     const getCurrentImg = (idx: number) => {
       const imgIndex = idx % paints.value.length;
@@ -69,6 +76,7 @@ export default defineComponent({
       getCurrentImg,
       applyFilter,
       noFilteredProducts,
+      addToCart,
     };
   },
 });
@@ -77,7 +85,8 @@ export default defineComponent({
 <style lang="scss" scoped>
 .products-list {
   display: grid;
-  column-gap: 1.5rem;
+  height: fit-content;
+  column-gap: 0.5rem;
   grid-template-columns: repeat(auto-fill, minmax(284px, 1fr));
   grid-template-rows: repeat(auto-fill, minmax(378px, 1fr));
   grid-column: 2 / -1;
@@ -92,5 +101,20 @@ export default defineComponent({
 
 .product-img {
   object-fit: cover;
+}
+
+.product-add-card {
+  padding-block: 10px;
+  padding-inline: 34px;
+  border-radius: 8px;
+  background-color: $color-brand;
+  // opacity: 0;
+  @include transition-default;
+
+  .product:hover > & {
+    // opacity: 1;
+    outline: 5px solid rgba(80, 34, 34, 0.589);
+    outline-offset: -5px;
+  }
 }
 </style>
