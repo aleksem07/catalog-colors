@@ -78,6 +78,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .products-list {
+  padding-bottom: 141px;
   display: grid;
   height: fit-content;
   column-gap: 0.5rem;
