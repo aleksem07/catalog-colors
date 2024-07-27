@@ -1,12 +1,45 @@
 <template lang="pug">
-p.sort sort filter1
+select.sort(
+  name="sort"
+  id="sort"
+  v-model="selectedSort"
+  @change="updateSort",
+)
+  option(
+    v-for="option in options"
+    :key="option.value"
+    :value="option.value"
+  ) {{ option.text }}
+
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
+import { useStore } from "vuex";
+
+const options = [
+  { value: "high", text: "Сначала дорогие" },
+  { value: "low", text: "Сначала дешевые" },
+  { value: "popular", text: "Сначала Популярные" },
+  { value: "new", text: "Сначала Новые" },
+];
 
 export default defineComponent({
   name: "FilterSort",
+
+  setup() {
+    const store = useStore();
+    const selectedSort = ref(options[0].value);
+    const updateSort = () => {
+      store.commit("setSelectedSort", selectedSort.value);
+    };
+
+    return {
+      options,
+      selectedSort,
+      updateSort,
+    };
+  },
 });
 </script>
 

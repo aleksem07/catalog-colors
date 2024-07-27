@@ -124,6 +124,7 @@ export default defineComponent({
     font-size: $fz-12px;
     letter-spacing: 0.06em;
     text-transform: uppercase;
+    @include hover($color-light);
   }
 }
 </style>

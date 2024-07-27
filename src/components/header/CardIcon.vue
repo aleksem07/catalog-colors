@@ -36,6 +36,7 @@ export default defineComponent({
   display: flex;
   justify-content: center;
   align-items: center;
+  @include hover($color-light);
 }
 
 .card-title {

@@ -9,11 +9,34 @@ export default createStore({
     products: [] as IProduct[],
     filteredProducts: [] as IProduct[],
     productsInCard: [] as IProduct[],
-    isCardOpen: true,
+    isCardOpen: false,
+    selectedSort: "high",
   },
   getters: {
     getProducts: state => state.products,
-    getFilteredProducts: state => state.filteredProducts,
+    getFilteredProducts: state => {
+      const sortedProducts = [...state.filteredProducts];
+      switch (state.selectedSort) {
+        case "high":
+          return sortedProducts.sort((a, b) => +b.price - +a.price);
+        case "low":
+          return sortedProducts.sort((a, b) => +a.price - +b.price);
+        case "popular":
+          return sortedProducts.sort((a, b) => {
+            if (a.popular && !b.popular) return -1;
+            if (!a.popular && b.popular) return 1;
+            return 0;
+          });
+        case "new":
+          return sortedProducts.sort((a, b) => {
+            if (a.new && !b.new) return -1;
+            if (!a.new && b.new) return 1;
+            return 0;
+          });
+        default:
+          return sortedProducts;
+      }
+    },
     getProductsInCard: state => state.productsInCard,
     getIsCardOpen: state => state.isCardOpen,
   },
@@ -30,6 +53,9 @@ export default createStore({
     },
     setIsCardOpen: (state, isCardOpen: boolean) => {
       state.isCardOpen = isCardOpen;
+    },
+    setSelectedSort: (state, selectedSort: string) => {
+      state.selectedSort = selectedSort;
     },
   },
   actions: {

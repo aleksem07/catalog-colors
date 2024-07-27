@@ -3,7 +3,7 @@ FilterCategory(:selectedCategories="selectedCategories" @update:filter="applyFil
 ul.products-list(v-if="!noFilteredProducts")
   li.products-item.product(v-for="(product, idx) in filteredProducts" :key="idx")
     img.product-img(:alt="product.title" :src="product.image" width='278px' height='278px')
-    h3.product-title Краска {{ product.title }}
+    h3.product-title Краска {{ product.title }} 
     p.product-price {{ Math.floor(product.price) * 10 }} ₽
     button.product-add-card(@click="addToCart(product)") +
 div.products-no-found(v-else) Извините, товары по запросу не найдены. Пожалуйста, попробуйте изменить фильтры или обновить страницу
@@ -15,6 +15,7 @@ import { useStore } from "vuex";
 import FilterCategory from "./filters/FilterCategory.vue";
 import { IProduct } from "@/types/products";
 import { addToCart } from "@/utils/ProductsToCard";
+import PAINTS from "@/common/paints";
 
 export default defineComponent({
   name: "ProductsList",
@@ -29,24 +30,13 @@ export default defineComponent({
     );
 
     const selectedCategories = ref<string[]>([]);
-    const paints = ref([
-      "paints/paint1.png",
-      "paints/paint2.png",
-      "paints/paint3.png",
-      "paints/paint4.png",
-      "paints/paint5.png",
-      "paints/paint6.png",
-      "paints/paint7.png",
-      "paints/paint8.png",
-      "paints/paint9.png",
-    ]);
 
     const initializeProductImages = (products: IProduct[]) => {
       const updatedProducts = products.map((product, idx) => {
-        const imgIndex = idx % paints.value.length;
+        const imgIndex = idx % PAINTS.length;
         return {
           ...product,
-          image: paints.value[imgIndex],
+          image: PAINTS[imgIndex],
         };
       });
       store.commit("setProducts", updatedProducts);

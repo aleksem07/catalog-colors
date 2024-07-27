@@ -1,9 +1,9 @@
-@mixin hover {
+@mixin hover($color: $color-brand) {
   cursor: pointer;
   transition: color 0.3s ease;
 
   &:hover {
-    color: $color-brand;
+    color: $color;
   }
 }
 
