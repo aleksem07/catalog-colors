@@ -69,8 +69,7 @@ export default defineComponent({
 }
 
 .filter-category--input {
-  visibility: hidden;
-
+  width: 0;
   &:checked::before,
   &:not(:checked)::before {
     content: "";
@@ -82,7 +81,7 @@ export default defineComponent({
     height: 22px;
     border-radius: 40px;
     @include transition-default(background-color);
-    visibility: visible;
+    opacity: 1;
   }
 
   &:checked::before {
@@ -105,7 +104,7 @@ export default defineComponent({
     border-radius: 50%;
     background-color: $color-dark;
     @include transition-default(left, 0.5s);
-    visibility: visible;
+    opacity: 1;
   }
 
   &:checked::after {
@@ -115,5 +114,9 @@ export default defineComponent({
   &:not(:checked)::after {
     left: 7px;
   }
+}
+label:has(input:focus-visible) {
+  outline: 2px solid $color-brand;
+  border-radius: 10px;
 }
 </style>
