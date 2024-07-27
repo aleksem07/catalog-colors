@@ -2,7 +2,7 @@
 FilterCategory(:selectedCategories="selectedCategories" @update:filter="applyFilter")
 ul.products-list(v-if="!noFilteredProducts")
   li.products-item.product(v-for="(product, idx) in filteredProducts" :key="idx")
-    img.product-img(:alt="product.title" :src="getCurrentImg(idx)" width='278px' height='278px')
+    img.product-img(:alt="product.title" :src="product.image" width='278px' height='278px')
     h3.product-title Краска {{ product.title }}
     p.product-price {{ Math.floor(product.price) }}0 ₽
     button.product-add-card(@click="addToCart(product)") +
@@ -45,9 +45,15 @@ export default defineComponent({
       store.commit("setProductsInCard", [...currentProductsInCard, product]);
     };
 
-    const getCurrentImg = (idx: number) => {
-      const imgIndex = idx % paints.value.length;
-      return paints.value[imgIndex];
+    const initializeProductImages = (products: IProduct[]) => {
+      const updatedProducts = products.map((product, idx) => {
+        const imgIndex = idx % paints.value.length;
+        return {
+          ...product,
+          image: paints.value[imgIndex],
+        };
+      });
+      store.commit("setProducts", updatedProducts);
     };
 
     const applyFilter = (categories: string[]) => {
@@ -57,7 +63,9 @@ export default defineComponent({
 
     onMounted(() => {
       if (!products.value.length) {
-        store.dispatch("fetchProducts");
+        store.dispatch("fetchProducts").then(() => {
+          initializeProductImages(store.getters.getProducts);
+        });
       }
     });
 
@@ -73,7 +81,7 @@ export default defineComponent({
       products,
       selectedCategories,
       filteredProducts,
-      getCurrentImg,
+      initializeProductImages,
       applyFilter,
       noFilteredProducts,
       addToCart,

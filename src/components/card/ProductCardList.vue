@@ -1,7 +1,7 @@
 <template lang="pug">
 ul.card-products-list
   li.card-products-item.product(v-for="product in productsInCard")
-    img.product-img(alt="product.title" src="paints/paint1.png" width='96px' height='96px')
+    img.product-img(:alt="product.title" :src="product.image" width='96px' height='96px')
     .product-info
       h3.product-title Краска {{ product.title }}
       p.product-price {{ Math.floor(product.price) }}0 ₽
