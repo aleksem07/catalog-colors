@@ -9,7 +9,7 @@ export default createStore({
     products: [] as IProduct[],
     filteredProducts: [] as IProduct[],
     productsInCard: [] as IProduct[],
-    isCardOpen: false,
+    isCardOpen: true,
     selectedSort: "high",
   },
   getters: {

@@ -39,6 +39,11 @@ export default defineComponent({
 
 body {
   margin: 0;
+  @include transition-default(background-color 0.3s);
+
+  &:has(.bcg-modal--open) {
+    overflow: hidden;
+  }
 }
 
 ul,
