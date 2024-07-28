@@ -42,7 +42,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .user-icons {
   display: flex;
-  column-gap: 24px;
+  column-gap: 14px;
 }
 svg {
   @include hover;

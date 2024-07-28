@@ -3,7 +3,7 @@ section.promo
   img.promo-slide(alt="Слайд 1" src="slider.jpg")
   
   .promo-container 
-    p.breadcrumbs Главная Продукты Краски 
+    p.breadcrumbs Главная  ●  Продукты  ●  Краски 
     <SliderData :items="SLIDER_DATA"/>
 </template>
 

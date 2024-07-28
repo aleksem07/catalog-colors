@@ -27,10 +27,17 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .pages-list {
+  margin-right: auto;
+  margin-left: 3%;
   display: flex;
   flex-wrap: wrap;
   column-gap: 24px;
   cursor: pointer;
+
+  font-size: $fz-14px;
+
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
 .pages-item {

@@ -1,10 +1,10 @@
 <template lang="pug">
 section.slider
-  button.slider-button(@click="prev" :disabled="currentIndex === 0") Previous
+  button.slider-button.slider-button--prev(@click="prev" :disabled="currentIndex === 0")
   .slide(v-for="(item, index) in items" :key="index" v-show="index === currentIndex") 
-    .slider-title {{ item.title }}
-    .slider-desc {{ item.desc }}
-  button.slider-button(@click="next" :disabled="currentIndex === items.length - 1") Next
+    h2.slider-title {{ item.title }}
+    p.slider-desc {{ item.desc }}
+  button.slider-button.slider-button--next(@click="next" :disabled="currentIndex === items.length - 1")
   ul.slider-navigate.slider-navigate-list
     li.slider-navigate-item(:class="{ active: index === currentIndex }")(v-for="(item, index) in items" :key="index")
 </template>
@@ -50,23 +50,28 @@ export default defineComponent({
   grid-row: 2 / -1;
   text-align: center;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 12rem auto 12rem;
   grid-template-rows: 0.5fr auto auto;
   width: 100%;
 }
 
 .slider-title {
   margin-bottom: 24px;
+  padding-right: 21px;
   font-size: $fz-72px;
   line-height: 88%;
   letter-spacing: -0.02em;
   color: $color-light;
+  font-family: $font_family;
 }
 
 .slider-desc {
+  margin: 0 auto;
+  max-width: 60%;
   font-weight: 500;
   line-height: 130%;
   letter-spacing: 0.02em;
+  font-family: $font_family;
 }
 
 .slider-navigate {
@@ -86,6 +91,8 @@ export default defineComponent({
   justify-content: space-between;
   align-items: center;
   border-radius: 16px;
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
 }
 
 .slider-navigate-item {
@@ -96,6 +103,43 @@ export default defineComponent({
   opacity: 0.2;
 }
 
+.slider-button {
+  grid-row: 1 / -1;
+  position: relative;
+
+  &--prev,
+  &--next {
+    &::after,
+    &::before {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 46%;
+      left: 50%;
+      width: 2px;
+      height: 32px;
+      transform: rotate(180deg);
+      border-radius: 50%;
+      background: $color-light;
+    }
+
+    &::before {
+      top: 50%;
+      left: 59%;
+      transform: rotate(90deg);
+    }
+  }
+
+  &--prev {
+    transform: translate(10%, 0%) rotate(45deg);
+    position: relative;
+  }
+
+  &--next {
+    transform: translate(10%, 3%) rotate(225deg);
+    position: relative;
+  }
+}
 .active {
   opacity: 1;
 }

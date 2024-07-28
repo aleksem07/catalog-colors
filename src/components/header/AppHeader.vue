@@ -28,13 +28,13 @@ export default defineComponent({
 <style lang="scss" scoped>
 .header {
   width: 100%;
-  padding-block: 41px;
+  padding-block: 36px;
 }
 
 .header-container {
   display: flex;
   align-items: center;
-  column-gap: 1%;
+  column-gap: 6.5%;
   justify-content: space-between;
 }
 </style>
