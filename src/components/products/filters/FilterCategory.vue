@@ -50,16 +50,15 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .filter-category {
-  width: calc($size_desktop / 6);
   display: flex;
   flex-direction: column;
-  row-gap: 10px;
+  row-gap: 12px;
   grid-column: 1 / 2;
   grid-row: 1 / -1;
 }
 
 .filter-category--label {
-  padding-left: 53px;
+  padding-left: 48px;
   font-size: $fz-12px;
   letter-spacing: 0.06em;
   text-transform: uppercase;

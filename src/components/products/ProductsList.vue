@@ -2,7 +2,8 @@
 FilterCategory(:selectedCategories="selectedCategories" @update:filter="applyFilter")
 ul.products-list(v-if="!noFilteredProducts")
   li.products-item.product(v-for="(product, idx) in filteredProducts" :key="idx")
-    img.product-img(:alt="product.title" :src="product.image" width='278px' height='278px')
+    .product-img-box
+      img.product-img(:alt="product.title" :src="product.image" )
     h3.product-title Краска {{ product.title }} 
     p.product-price {{ Math.floor(product.price) * 10 }} ₽
     button.product-add-card(@click="addToCart(product)") +
@@ -78,9 +79,10 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .products-list {
+  padding-top: 44px;
   display: grid;
   height: fit-content;
-  column-gap: 0.5rem;
+  column-gap: 1.2%;
   grid-template-columns: repeat(auto-fill, minmax(284px, 1fr));
   grid-template-rows: repeat(auto-fill, minmax(378px, 1fr));
   grid-column: 2 / -1;
@@ -93,22 +95,54 @@ export default defineComponent({
   font-size: $fz-24px;
 }
 
+.product {
+  display: grid;
+  grid-template-rows: repeat(3, auto);
+  grid-template-columns: 1fr;
+  row-gap: 15px;
+
+  &:hover > .product-add-card {
+    opacity: 1;
+  }
+}
+
+.product-img-box {
+  width: 278px;
+  height: 278px;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  grid-row: 1 / 2;
+}
+
 .product-img {
-  object-fit: cover;
+  object-fit: scale-down;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.product-title {
+  font-weight: 300;
+  line-height: 112%;
+  letter-spacing: 0.02em;
+  grid-row: 2 / 3;
+  min-height: 36px;
 }
 
 .product-add-card {
-  padding-block: 10px;
-  padding-inline: 34px;
+  padding-block: 7px;
+  padding-inline: 37px;
   border-radius: 8px;
   background-color: $color-brand;
-  // opacity: 0;
+  max-width: fit-content;
+  margin-left: auto;
+  opacity: 0;
   @include transition-default;
+}
 
-  .product:hover > & {
-    // opacity: 1;
-    outline: 5px solid rgba(80, 34, 34, 0.589);
-    outline-offset: -5px;
-  }
+.product-price,
+.product-add-card {
+  grid-row: 3 / 4;
+  grid-column: 1 / 2;
 }
 </style>

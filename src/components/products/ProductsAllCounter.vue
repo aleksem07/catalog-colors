@@ -26,9 +26,12 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .counter {
-  padding-bottom: 44px;
   width: 50%;
   grid-column: 2 / 3;
   grid-row: 1 / 2;
+  font-weight: 500;
+  font-size: $fz-12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 </style>

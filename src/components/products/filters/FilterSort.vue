@@ -46,8 +46,15 @@ export default defineComponent({
 <style lang="scss" scoped>
 .sort {
   width: 50%;
-  text-align: end;
   grid-column: -1 / -2;
   grid-row: 1 / 2;
+  font-family: $font-family;
+  font-weight: 500;
+  font-size: $fz-12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  justify-self: end;
+  border: none;
+  background-color: transparent;
 }
 </style>
