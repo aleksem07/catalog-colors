@@ -39,7 +39,7 @@ export default defineComponent({
   letter-spacing: 0.06em;
   text-transform: uppercase;
 
-  @media (max-width: $size_tablet) {
+  @media (max-width: $size_desktop) {
     display: none;
   }
 }

@@ -1,6 +1,7 @@
 <template lang="pug">
-button.filter-category-button Фильтры
-.filter-category
+button.filter-category-button(@click='isOpen = true') Фильтры
+div(:class="isOpen ? 'filter-category-overlay' : ''")(@click='isOpen = false')
+.filter-category(:class="isOpen ? 'filter-category--open' : ''")
   label.filter-category--label(v-for="(category, key, idx) in categories" :key="idx") {{category}}
     input.filter-category--input(type="checkbox" :value="key" v-model="localSelectedCategories" @change="updateFilter")
 </template>
@@ -27,6 +28,7 @@ export default defineComponent({
     });
 
     const localSelectedCategories = ref(props.selectedCategories);
+    const isOpen = ref(false);
 
     watch(
       () => props.selectedCategories,
@@ -44,6 +46,7 @@ export default defineComponent({
       categories,
       localSelectedCategories,
       updateFilter,
+      isOpen,
     };
   },
 });
@@ -70,9 +73,48 @@ export default defineComponent({
   grid-column: 1 / 2;
   grid-row: 1 / -1;
 
-  @media (max-width: ($size_desktop - 1px)) {
+  @media (max-width: ($size_tablet - 1px)) {
     display: none;
   }
+}
+
+.filter-category--open {
+  display: none;
+  @media (max-width: ($size_tablet - 1px)) {
+    padding-top: 54px;
+    background-color: #fff;
+    width: 100%;
+    height: calc(100% / 2);
+    z-index: 1;
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    border-radius: 24px 24px 0 0;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    width: 28px;
+    height: 4px;
+    border-radius: 40px;
+    background-color: $color-text-main;
+    opacity: 0.6;
+    transform: translateX(-50%);
+  }
+}
+
+.filter-category-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: $color-dark--070;
+  z-index: 1;
 }
 
 .filter-category--label {
@@ -83,6 +125,10 @@ export default defineComponent({
   position: relative;
   cursor: pointer;
   text-wrap: nowrap;
+
+  @media (max-width: ($size_tablet - 1px)) {
+    margin-left: 24px;
+  }
 }
 
 .filter-category--input {

@@ -34,7 +34,7 @@ export default defineComponent({
   letter-spacing: 0.06em;
   text-transform: uppercase;
 
-  @media (max-width: ($size_desktop - 1px)) {
+  @media (max-width: ($size_tablet - 1px)) {
     display: none;
   }
 }

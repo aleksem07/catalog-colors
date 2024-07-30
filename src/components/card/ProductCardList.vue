@@ -137,6 +137,10 @@ export default defineComponent({
   grid-row: 2 / 3;
   display: grid;
   row-gap: 13px;
+
+  @media (max-width: ($size_desktop - 1px)) {
+    max-height: 40vh;
+  }
 }
 
 .product {
@@ -152,6 +156,11 @@ export default defineComponent({
     width: 100%;
     border-top: 1px solid $color-dark;
     opacity: 0.1;
+  }
+
+  @media (max-width: ($size_tablet - 1px)) {
+    font-size: $fz-12px;
+    flex-wrap: wrap;
   }
 }
 

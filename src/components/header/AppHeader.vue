@@ -78,7 +78,7 @@ export default defineComponent({
     top: 7px;
   }
 
-  @media (max-width: $size_tablet) {
+  @media (max-width: $size_desktop) {
     display: block;
   }
 }

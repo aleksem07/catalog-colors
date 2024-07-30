@@ -43,7 +43,8 @@ body {
   @include transition-default(background-color 0.3s);
 
   &:has(.bcg-modal--open),
-  &:has(.modal-content--open) {
+  &:has(.modal-content--open),
+  &:has(.filter-category--open) {
     overflow: hidden;
   }
 }

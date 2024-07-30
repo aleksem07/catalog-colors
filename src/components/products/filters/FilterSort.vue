@@ -30,6 +30,7 @@ export default defineComponent({
     const showModal = ref(false);
     const updateSort = () => {
       store.commit("setSelectedSort", selectedSort.value);
+      showModal.value = false;
     };
 
     const selectedOptionText = computed(() => {
@@ -105,6 +106,10 @@ export default defineComponent({
   align-items: center;
   justify-content: center;
   z-index: 1;
+
+  @media (max-width: ($size_tablet - 1px)) {
+    width: 240px;
+  }
 }
 
 .modal-overlay {
@@ -127,6 +132,10 @@ export default defineComponent({
   flex-wrap: nowrap;
   transform: translate(0px, 81px);
   text-align: start;
+
+  @media (max-width: ($size_tablet - 1px)) {
+    transform: translate(-105px, 81px);
+  }
 }
 
 .sort-label {
@@ -136,6 +145,10 @@ export default defineComponent({
 
   &:has(.sort-input:checked) {
     background-color: $color-brand;
+  }
+
+  @media (max-width: ($size_tablet - 1px)) {
+    text-wrap: wrap;
   }
 }
 

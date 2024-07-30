@@ -93,6 +93,14 @@ export default defineComponent({
 
   &--close {
     right: -100%;
+
+    @media (max-width: $size_tablet) {
+      right: -180%;
+    }
+  }
+
+  @media (max-width: $size_desktop) {
+    width: auto;
   }
 }
 
@@ -144,6 +152,12 @@ export default defineComponent({
   grid-template-columns: 1fr 1fr;
   grid-template-rows: auto auto;
   column-gap: 40px;
+
+  @media (max-width: $size_desktop) {
+    display: flex;
+    flex-direction: column;
+    row-gap: 9px;
+  }
 
   &-price {
     grid-column: 1 / 2;

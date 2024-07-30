@@ -103,6 +103,11 @@ export default defineComponent({
   grid-column: 2 / -1;
   grid-row: 2 / 3;
   font-size: $fz-24px;
+
+  @media (max-width: ($size_tablet - 1px)) {
+    font-size: $fz-16px;
+    padding-top: 30px;
+  }
 }
 
 .product {
@@ -147,6 +152,10 @@ export default defineComponent({
   @media (max-width: ($size_tablet - 1px)) {
     width: 112px;
     height: 112px;
+  }
+
+  @media (max-width: ($size_desktop - 1px)) {
+    justify-self: center;
   }
 }
 
