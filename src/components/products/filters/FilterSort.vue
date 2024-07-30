@@ -153,8 +153,7 @@ export default defineComponent({
 }
 
 .sort-input {
-  width: 0;
-  position: absolute;
-  right: 0;
+  visibility: hidden;
+  // right: 0;
 }
 </style>

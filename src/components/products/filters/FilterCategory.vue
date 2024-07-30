@@ -2,8 +2,9 @@
 button.filter-category-button(@click='isOpen = true') Фильтры
 div(:class="isOpen ? 'filter-category-overlay' : ''")(@click='isOpen = false')
 .filter-category(:class="isOpen ? 'filter-category--open' : ''")
-  label.filter-category-label(v-for="(category, key, idx) in categories" :key="idx") {{category}}
-    input.filter-category-input(type="checkbox" :value="key" v-model="localSelectedCategories" @change="updateFilter")
+  .filter-category-box(v-for="(category, key, idx) in categories" :key="idx")
+    input.filter-category-input(type="checkbox" :id="category"  :value="key" v-model="localSelectedCategories" @change="updateFilter")
+    label.filter-category-label(:for="category") {{category}}
 </template>
 
 <script lang="ts">
@@ -132,9 +133,17 @@ export default defineComponent({
 }
 
 .filter-category-input {
-  width: 0;
-  &:checked::before,
-  &:not(:checked)::before {
+  position: absolute;
+  opacity: 0;
+  z-index: -1;
+
+  &:focus-visible + .filter-category-label {
+    outline: 2px solid $color-brand;
+    border-radius: 10px;
+  }
+
+  &:checked + .filter-category-label::before,
+  &:not(:checked) + .filter-category-label::before {
     content: "";
     position: absolute;
     left: 0;
@@ -147,16 +156,16 @@ export default defineComponent({
     opacity: 1;
   }
 
-  &:checked::before {
+  &:checked + .filter-category-label::before {
     background-color: $color-brand;
   }
 
-  &:not(:checked)::before {
+  &:not(:checked) + .filter-category-label::before {
     background-color: $color-gray;
   }
 
-  &:checked::after,
-  &:not(:checked)::after {
+  &:checked + .filter-category-label::after,
+  &:not(:checked) + .filter-category-label::after {
     z-index: 10;
     content: "";
     position: absolute;
@@ -170,16 +179,12 @@ export default defineComponent({
     opacity: 1;
   }
 
-  &:checked::after {
+  &:checked + .filter-category-label::after {
     left: 21px;
   }
 
-  &:not(:checked)::after {
+  &:not(:checked) + .filter-category-label::after {
     left: 7px;
   }
-}
-label:has(input:focus-visible) {
-  outline: 2px solid $color-brand;
-  border-radius: 10px;
 }
 </style>
