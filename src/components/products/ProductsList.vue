@@ -83,6 +83,7 @@ export default defineComponent({
   display: grid;
   height: fit-content;
   column-gap: 1.2%;
+  row-gap: 17px;
   grid-template-columns: repeat(auto-fill, minmax(284px, 1fr));
   grid-template-rows: repeat(auto-fill, minmax(378px, 1fr));
   grid-column: 2 / -1;
@@ -96,6 +97,7 @@ export default defineComponent({
 }
 
 .product {
+  padding-bottom: 12px;
   display: grid;
   grid-template-rows: repeat(3, auto);
   grid-template-columns: 1fr;
@@ -103,6 +105,14 @@ export default defineComponent({
 
   &:hover > .product-add-card {
     opacity: 1;
+  }
+
+  &:nth-child(-n + 5) {
+    border-bottom: none;
+  }
+
+  &:not(:nth-last-child(-n + 5)) {
+    border-bottom: 1px solid $color-dark--010;
   }
 }
 
