@@ -9,18 +9,18 @@
 
   ul.card-products-list
     li(v-if="productsInCard.length > 0")(:class="product.inStock ? '' : 'product--out'").card-products-item.product(v-for="product in productsInCard")
-      img.product-img(:alt="product.title" :src="product.image" width='96px' height='96px')
+      img.product-img(:alt="product.title" :src="product.image")
       .product-info
         h3.product-title Краска {{ product.title }}
         p.product-price {{ Math.floor(product.price) * 10 * product.quantity }}₽
       .product-quantity
-        button(v-if="product.inStock").product-quantity--minus(@click="decrementProductQuantity(product)")
-        button(v-else)(disabled).product-quantity--minus(@click="decrementProductQuantity(product)")
+        button(v-if="product.inStock").product-quantity-minus(@click="decrementProductQuantity(product)")
+        button(v-else)(disabled).product-quantity-minus(@click="decrementProductQuantity(product)")
 
-        p.product-quantity--count {{ product.quantity }}
+        p.product-quantity-count {{ product.quantity }}
 
-        button(v-if="product.inStock").product-quantity--plus(@click="addToCart(product)")
-        button(v-else)(disabled).product-quantity--plus(@click="addToCart(product)")
+        button(v-if="product.inStock").product-quantity-plus(@click="addToCart(product)")
+        button(v-else)(disabled).product-quantity-plus(@click="addToCart(product)")
 
       button(v-if="product.inStock").product-del.inStock(@click="removeProduct(product)")
       button(v-else).product-del.shuffle(@click="randomProduct(product)")
@@ -171,7 +171,7 @@ button[class*="product-quantity"] {
   background-color: $color-gray;
 }
 
-.product-quantity--minus {
+.product-quantity-minus {
   position: relative;
 
   &::after {
@@ -186,7 +186,7 @@ button[class*="product-quantity"] {
   }
 }
 
-.product-quantity--plus {
+.product-quantity-plus {
   position: relative;
 
   &::after,
