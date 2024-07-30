@@ -1,9 +1,10 @@
 <template lang="pug">
 section.slider
   button.slider-button.slider-button--prev(@click="prev" :disabled="currentIndex === 0")
-  .slide(v-for="(item, index) in items" :key="index" v-show="index === currentIndex") 
-    h2.slider-title {{ item.title }}
-    p.slider-desc {{ item.desc }}
+  ul
+    li.slide(v-for="(item, index) in items" :key="index" v-show="index === currentIndex") 
+      h2.slider-title {{ item.title }}
+      p.slider-desc {{ item.desc }}
   button.slider-button.slider-button--next(@click="next" :disabled="currentIndex === items.length - 1")
   ul.slider-navigate.slider-navigate-list
     li.slider-navigate-item(:class="{ active: index === currentIndex }")(v-for="(item, index) in items" :key="index")
@@ -97,7 +98,7 @@ export default defineComponent({
 }
 
 .slide {
-  padding-top: 31px;
+  padding-top: 21px;
   grid-column: 2 / 3;
   grid-row: 1 / 3;
   display: flex;

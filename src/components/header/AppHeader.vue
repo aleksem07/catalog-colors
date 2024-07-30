@@ -1,6 +1,6 @@
 <template lang="pug">
 header.header
-  .header-container
+  nav.header-container
     .burger
     <LogoMain />
     <PagesList />

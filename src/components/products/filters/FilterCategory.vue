@@ -1,8 +1,8 @@
 <template lang="pug">
 button.filter-category-button(@click='isOpen = true') Фильтры
 div(:class="isOpen ? 'filter-category-overlay' : ''")(@click='isOpen = false')
-.filter-category(:class="isOpen ? 'filter-category--open' : ''")
-  .filter-category-box(v-for="(category, key, idx) in categories" :key="idx")
+ul.filter-category(:class="isOpen ? 'filter-category--open' : ''")
+  li.filter-category-box(v-for="(category, key, idx) in categories" :key="idx")
     input.filter-category-input(type="checkbox" :id="category"  :value="key" v-model="localSelectedCategories" @change="updateFilter")
     label.filter-category-label(:for="category") {{category}}
 </template>
