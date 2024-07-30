@@ -3,8 +3,8 @@ button.filter-category-button(@click='isOpen = true') Фильтры
 div(:class="isOpen ? 'filter-category-overlay' : ''")(@click='isOpen = false')
 ul.filter-category(:class="isOpen ? 'filter-category--open' : ''")
   li.filter-category-box(v-for="(category, key, idx) in categories" :key="idx")
-    input.filter-category-input(type="checkbox" :id="category"  :value="key" v-model="localSelectedCategories" @change="updateFilter")
-    label.filter-category-label(:for="category") {{category}}
+    input.filter-category-input(type="checkbox" :id="idx" :value="key" v-model="localSelectedCategories" @change="updateFilter")
+    label.filter-category-label(:for="idx") {{category}}
 </template>
 
 <script lang="ts">
