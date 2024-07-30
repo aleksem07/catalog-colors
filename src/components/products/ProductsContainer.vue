@@ -24,10 +24,17 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .products-container {
-  padding-top: 48px;
+  padding-top: 72px;
+  padding-bottom: 126px;
   width: calc(100% - $padding_container * 2);
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   grid-template-rows: repeat(2, auto);
+
+  @media (max-width: ($size_tablet - 1px)) {
+    padding-top: 45px;
+    width: calc(100% - $padding_container--mobile * 2);
+    grid-template-columns: repeat(2, auto);
+  }
 }
 </style>

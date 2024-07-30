@@ -1,5 +1,5 @@
 <template lang="pug">
-button.card(@click="openCard") {{ AllProductsQuantity() }}
+button.card(@click="openCard") {{ AllProductsQuantity() > 99 ? "++" : AllProductsQuantity() }}
 </template>
 
 <script lang="ts">

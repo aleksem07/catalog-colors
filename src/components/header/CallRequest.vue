@@ -16,6 +16,10 @@ export default defineComponent({
 .call {
   display: flex;
   flex-direction: column;
+
+  @media (max-width: $size_desktop) {
+    display: none;
+  }
 }
 
 .call-tel {

@@ -18,3 +18,38 @@ export default defineComponent({
   name: "LogoComponent",
 });
 </script>
+
+<style lang="scss" scoped>
+.logo {
+  transform: translateX(-50%) scale(0.5);
+  opacity: 0;
+  animation: dropIn 1s ease-in-out forwards;
+
+  & svg {
+    @media (max-width: ($size_tablet - 1px)) {
+      width: 89px;
+      height: auto;
+    }
+  }
+}
+
+@keyframes dropIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(0.8);
+  }
+  100% {
+    top: 0;
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+</style>

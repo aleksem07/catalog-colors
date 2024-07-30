@@ -1,12 +1,14 @@
 <template lang="pug">
+.bcg-modal(:class="isCardOpen ? 'bcg-modal--open' : ''")
 .card(:class="isCardOpen ? 'card--open' : 'card--close'")
   .card-header
     h2.card-title Корзина
-    button.card_button--close(@click="closeCard") X 
+    button.card-button-close(@click="closeCard") X 
   <ProductCardList />
   .product-total
     p.product-total-title Итого
     p.product-total-price {{ priceTotal() }} ₽
+
     button.product-total-button Оформить заказ
 
 </template>
@@ -31,9 +33,11 @@ export default defineComponent({
       let total = 0;
       productsInCard.value.forEach((product: IProduct) => {
         if (!product.inStock) return;
+
         total += (parseInt(product.price) * 10 || 0) * (product.quantity || 0);
       });
-      return total;
+
+      return total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
     };
 
     const closeCard = () => {
@@ -51,10 +55,25 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+.bcg-modal {
+  @include transition-default(all 0.3s);
+}
+.bcg-modal--open {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  right: 0;
+  background-color: $color-dark;
+  opacity: 0.7;
+  @include transition-default(background-color 0.3s);
+}
+
 .card {
   padding: 40px;
+  padding-top: 30px;
   margin: 0 auto;
-  width: calc(100% / 3 - $padding_container);
+  width: calc((100% / 3 - $padding_container * 2) + 8px);
   height: 100vh;
   position: fixed;
   top: 0;
@@ -74,6 +93,39 @@ export default defineComponent({
 
   &--close {
     right: -100%;
+
+    @media (max-width: $size_tablet) {
+      right: -180%;
+    }
+  }
+
+  @media (max-width: $size_desktop) {
+    width: auto;
+  }
+}
+
+.card-button-close {
+  width: 48px;
+  height: 48px;
+  font-size: $fz-20px;
+  position: relative;
+
+  &::after {
+    content: "";
+    border-radius: 50%;
+    border: 1px solid $color-dark;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 48px;
+    height: 48px;
+    opacity: 0.2;
+    transform: translate(-50%, -50%);
+    @include transition-default(opacity 0.2s);
+  }
+
+  &:hover::after {
+    opacity: 1;
   }
 }
 
@@ -89,15 +141,23 @@ export default defineComponent({
 }
 
 .card-header {
-  @include flex-between;
+  @include flex;
+  margin-bottom: 80px;
 }
 
 .product-total {
-  padding-block: 80px;
-  @include flex-between;
+  padding-block: 115px;
+  @include flex;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: auto auto;
+  column-gap: 40px;
+
+  @media (max-width: $size_desktop) {
+    display: flex;
+    flex-direction: column;
+    row-gap: 9px;
+  }
 
   &-price {
     grid-column: 1 / 2;
