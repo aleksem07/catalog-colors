@@ -41,7 +41,8 @@ body {
   margin: 0;
   @include transition-default(background-color 0.3s);
 
-  &:has(.bcg-modal--open) {
+  &:has(.bcg-modal--open),
+  &:has(.modal-content--open) {
     overflow: hidden;
   }
 }
