@@ -94,12 +94,12 @@ export default defineComponent({
   &--close {
     right: -100%;
 
-    @media (max-width: $size_tablet) {
+    @media (max-width: ($size_tablet - 1px)) {
       right: -180%;
     }
   }
 
-  @media (max-width: $size_desktop) {
+  @media (max-width: ($size_desktop - 1px)) {
     width: auto;
   }
 }
@@ -153,7 +153,7 @@ export default defineComponent({
   grid-template-rows: auto auto;
   column-gap: 40px;
 
-  @media (max-width: $size_desktop) {
+  @media (max-width: ($size_desktop - 1px)) {
     display: flex;
     flex-direction: column;
     row-gap: 9px;

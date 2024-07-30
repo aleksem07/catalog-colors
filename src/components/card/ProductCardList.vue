@@ -131,7 +131,7 @@ export default defineComponent({
 }
 
 .card-products-list {
-  max-height: 70vh;
+  max-height: 65vh;
   overflow: auto;
   grid-column: 1 / -1;
   grid-row: 2 / 3;

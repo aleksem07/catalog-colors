@@ -17,7 +17,7 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
 
-  @media (max-width: $size_desktop) {
+  @media (max-width: ($size_desktop - 1px)) {
     display: none;
   }
 }
