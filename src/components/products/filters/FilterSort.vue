@@ -66,6 +66,10 @@ export default defineComponent({
   cursor: pointer;
   position: relative;
   text-align: end;
+
+  @media (max-width: ($size_tablet - 1px)) {
+    min-width: auto;
+  }
 }
 
 .sort-button {

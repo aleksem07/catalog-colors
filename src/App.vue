@@ -33,6 +33,7 @@ export default defineComponent({
   flex-direction: column;
   width: 100%;
   min-height: 100vh;
+  min-width: $size_mobile;
   justify-content: flex-start;
   align-items: flex-start;
 }
@@ -86,6 +87,11 @@ button {
   margin: 0 auto;
   max-width: calc($size_desktop - $padding_container * 2);
   padding-inline: $padding_container;
+
+  @media (max-width: ($size_tablet - 1px)) {
+    max-width: calc($size_mobile - $padding_container--mobile * 2);
+    padding-inline: $padding_container--mobile;
+  }
 }
 
 .visually-hidden {

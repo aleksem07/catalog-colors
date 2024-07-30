@@ -88,6 +88,15 @@ export default defineComponent({
   grid-template-rows: repeat(auto-fill, minmax(378px, 1fr));
   grid-column: 2 / -1;
   grid-row: 2 / 3;
+
+  @media (max-width: ($size_tablet - 1px)) {
+    padding-top: 45px;
+    grid-template-columns: repeat(2, auto);
+    grid-template-rows: auto;
+    grid-column: 1 / -1;
+    column-gap: 15px;
+    row-gap: 35px;
+  }
 }
 
 .products-no-found {
@@ -114,6 +123,17 @@ export default defineComponent({
   &:not(:nth-last-child(-n + 5)) {
     border-bottom: 1px solid $color-dark--010;
   }
+
+  @media (max-width: ($size_tablet - 1px)) {
+    padding-bottom: 25px;
+    justify-items: center;
+    row-gap: 20px;
+    grid-template-rows: repeat(3, max-content);
+    align-content: center;
+    align-items: center;
+    align-self: center;
+    min-height: 257px;
+  }
 }
 
 .product-img-box {
@@ -123,6 +143,11 @@ export default defineComponent({
   justify-content: center;
   align-self: center;
   grid-row: 1 / 2;
+
+  @media (max-width: ($size_tablet - 1px)) {
+    width: 112px;
+    height: 112px;
+  }
 }
 
 .product-img {
@@ -137,6 +162,11 @@ export default defineComponent({
   letter-spacing: 0.02em;
   grid-row: 2 / 3;
   min-height: 36px;
+
+  @media (max-width: ($size_tablet - 1px)) {
+    min-height: 58px;
+    padding-top: 12px;
+  }
 }
 
 .product-add-card {
@@ -148,11 +178,32 @@ export default defineComponent({
   margin-left: auto;
   opacity: 0;
   @include transition-default;
+
+  @media (max-width: ($size_tablet - 1px)) {
+    padding-inline: 16px;
+    padding-block: 00;
+    opacity: 1;
+    background-color: $color-gray;
+    font-size: $fz-24px;
+  }
 }
 
 .product-price,
 .product-add-card {
   grid-row: 3 / 4;
   grid-column: 1 / 2;
+}
+
+.product-price {
+  @media (max-width: ($size_tablet - 1px)) {
+    justify-self: flex-start;
+  }
+}
+
+.product-add-card {
+  @media (max-width: ($size_tablet - 1px)) {
+    @include hover;
+    align-self: start;
+  }
 }
 </style>

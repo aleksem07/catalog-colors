@@ -1,4 +1,5 @@
 <template lang="pug">
+button.filter-category-button Фильтры
 .filter-category
   label.filter-category--label(v-for="(category, key, idx) in categories" :key="idx") {{category}}
     input.filter-category--input(type="checkbox" :value="key" v-model="localSelectedCategories" @change="updateFilter")
@@ -49,12 +50,29 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+.filter-category-button {
+  display: none;
+
+  @media (max-width: ($size_tablet - 1px)) {
+    display: block;
+    font-weight: 500;
+    font-size: $fz-12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-align: left;
+  }
+}
+
 .filter-category {
   display: flex;
   flex-direction: column;
   row-gap: 12px;
   grid-column: 1 / 2;
   grid-row: 1 / -1;
+
+  @media (max-width: ($size_desktop - 1px)) {
+    display: none;
+  }
 }
 
 .filter-category--label {

@@ -24,6 +24,13 @@ export default defineComponent({
   transform: translateX(-50%) scale(0.5);
   opacity: 0;
   animation: dropIn 1s ease-in-out forwards;
+
+  & svg {
+    @media (max-width: ($size_tablet - 1px)) {
+      width: 89px;
+      height: auto;
+    }
+  }
 }
 
 @keyframes dropIn {
