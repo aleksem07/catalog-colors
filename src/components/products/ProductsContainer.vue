@@ -25,7 +25,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .products-container {
   padding-top: 72px;
-  padding-bottom: 141px;
+  padding-bottom: 126px;
   width: calc(100% - $padding_container * 2);
   display: grid;
   grid-template-columns: repeat(6, 1fr);

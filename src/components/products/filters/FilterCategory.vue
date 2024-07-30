@@ -19,7 +19,7 @@ export default defineComponent({
   setup(props, { emit }) {
     const categories = ref({
       new: "Новинки",
-      inStock: "В наличии",
+      inStock: "Есть в наличии",
       contract: "Контрактные",
       exclusive: "Эксклюзивные",
       sale: "Распродажа",
