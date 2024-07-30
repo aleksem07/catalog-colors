@@ -2,8 +2,8 @@
 button.filter-category-button(@click='isOpen = true') Фильтры
 div(:class="isOpen ? 'filter-category-overlay' : ''")(@click='isOpen = false')
 .filter-category(:class="isOpen ? 'filter-category--open' : ''")
-  label.filter-category--label(v-for="(category, key, idx) in categories" :key="idx") {{category}}
-    input.filter-category--input(type="checkbox" :value="key" v-model="localSelectedCategories" @change="updateFilter")
+  label.filter-category-label(v-for="(category, key, idx) in categories" :key="idx") {{category}}
+    input.filter-category-input(type="checkbox" :value="key" v-model="localSelectedCategories" @change="updateFilter")
 </template>
 
 <script lang="ts">
@@ -117,7 +117,7 @@ export default defineComponent({
   z-index: 1;
 }
 
-.filter-category--label {
+.filter-category-label {
   padding-left: 48px;
   font-size: $fz-12px;
   letter-spacing: 0.06em;
@@ -131,7 +131,7 @@ export default defineComponent({
   }
 }
 
-.filter-category--input {
+.filter-category-input {
   width: 0;
   &:checked::before,
   &:not(:checked)::before {

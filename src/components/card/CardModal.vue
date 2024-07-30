@@ -3,7 +3,7 @@
 .card(:class="isCardOpen ? 'card--open' : 'card--close'")
   .card-header
     h2.card-title Корзина
-    button.card_button--close(@click="closeCard") X 
+    button.card-button-close(@click="closeCard") X 
   <ProductCardList />
   .product-total
     p.product-total-title Итого
@@ -104,7 +104,7 @@ export default defineComponent({
   }
 }
 
-.card_button--close {
+.card-button-close {
   width: 48px;
   height: 48px;
   font-size: $fz-20px;

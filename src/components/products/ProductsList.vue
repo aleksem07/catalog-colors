@@ -137,7 +137,7 @@ export default defineComponent({
     align-content: center;
     align-items: center;
     align-self: center;
-    min-height: 257px;
+    min-height: 276px;
   }
 }
 
