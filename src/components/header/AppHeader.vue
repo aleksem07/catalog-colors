@@ -6,7 +6,7 @@ header.header
     <PagesList />
     <CallRequest />
     <IconsComponent />
-    <CardIcon />
+    <CardIcon customClass="display" />
 </template>
 
 <script lang="ts">
@@ -78,7 +78,15 @@ export default defineComponent({
     top: 7px;
   }
 
-  @media (max-width: $size_desktop) {
+  @media (max-width: ($size_desktop - 1px)) {
+    display: block;
+  }
+}
+
+.display {
+  display: none;
+
+  @media (max-width: ($size_tablet - 1px)) {
     display: block;
   }
 }

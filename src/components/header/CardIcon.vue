@@ -1,5 +1,5 @@
 <template lang="pug">
-button.card(@click="openCard") {{ AllProductsQuantity() > 99 ? "++" : AllProductsQuantity() }}
+button.card(:class="customClass" @click="openCard") {{ AllProductsQuantity() > 99 ? "++" : AllProductsQuantity() }}
 </template>
 
 <script lang="ts">
@@ -9,6 +9,12 @@ import { AllProductsQuantity } from "@/utils/ProductsToCard";
 
 export default defineComponent({
   name: "CardIcon",
+  props: {
+    customClass: {
+      type: String,
+      default: "",
+    },
+  },
 
   setup() {
     const store = useStore();
